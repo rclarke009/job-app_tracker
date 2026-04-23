@@ -1,0 +1,6 @@
+gspread 
+google-auth 
+requests 
+python-dotenv
+uvicorn fastapi
+selenium

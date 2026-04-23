@@ -1,0 +1,24 @@
+# Secrets — never commit
+.env
+credentials.json
+*.pem
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+
+# Selenium / local browser drivers
+*.log
+chromedriver
+geckodriver
