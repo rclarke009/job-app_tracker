@@ -21,26 +21,30 @@ def connect_to_sheets():
 
     return sheet
 
-def connect_to_sheet(user_input):
+def append_to_sheet(job_data_from_llm):
+    sheet = connect_to_sheets()
 
+    # now = datetime.now()
+    # date = now.strftime("%d/%m/%Y")
 
-
-def append_to_sheet(user_input, sheet):
-    data = connect_to_sheet(user_input)
-
-    now = datetime.now()
-    date = now.strftime("%d/%m/%Y")
-    time = now.strftime("%H:%M:%S")
-
-
-    for exercise in data["exercises"]:
-        row = [
-            date,
-            time,
-            exercise["name"].title(),
-            exercise["duration_min"],
-            exercise["nf_calories"]
-        ]
+    # for data in job_data_from_llm:
+    dt = job_data_from_llm[0]
+    user_input_from_from = job_data_from_llm[1]
+    url = user_input_from_from[0]
+    resume = user_input_from_from[1]
+    summary = job_data_from_llm[2]
+    row = [
+        dt,
+        url,
+        summary,
+        resume
+    ]
 
     sheet.append_row(row)
-    print(f"Logged: {exercise['name']} - {exercise['duration_min']} min")
+    print(f"Logged: {summary[:25]}")
+
+    #add later:
+                # data["title"],
+                            # data["company"],
+
+

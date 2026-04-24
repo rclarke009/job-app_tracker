@@ -17,7 +17,9 @@ gunicorn app:app
 
 gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
 
-uvicorn app:app
+uvicorn jobapp_tracker.web_app.app:app
+
+
 
 
 Step	What you’re learning
