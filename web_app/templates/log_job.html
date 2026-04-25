@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Log a job — Job app tracker{% endblock %}
+
+{% block content %}
+  <h1>Log a job application</h1>
+
+  {% if error %}
+    <p class="form-error" role="alert">{{ error }}</p>
+  {% endif %}
+
+  <form class="log-job-form" method="post" action="/log" novalidate>
+    <div class="form-field">
+      <label for="job_url">Job URL <span class="optional">(optional)</span></label>
+      <input
+        type="url"
+        id="job_url"
+        name="job_url"
+        value="{{ old_url or '' }}"
+        placeholder="https://…"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="job_text">Job posting text <span class="required" aria-hidden="true">*</span></label>
+      <textarea
+        id="job_text"
+        name="job_text"
+        rows="22"
+        required
+        placeholder="Paste the full job description here…"
+      >{{ old_text or "" }}</textarea>
+    </div>
+
+    <div class="form-field">
+        <label for="resume_choice">Resume <span class="optional">(optional)</span></label>
+        <input
+          type="text"
+          id="resume_choice"
+          name="resume_choice"
+          list="resume-suggestions"
+          value="{{ old_resume or '' }}"
+          placeholder="Pick a suggestion or type your own…"
+          autocomplete="off"
+        />
+        <datalist id="resume-suggestions">
+          <option value="default"></option>
+          <option value="ai backend mid-level"></option>
+          <option value="ai workflows"></option>
+          <option value="short"></option>
+        </datalist>
+      </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary">Save and extract</button>
+      <a href="/jobs" class="btn-link">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

@@ -58,18 +58,41 @@ def add_job(info_to_add: JobInfo) -> None:
         )
         dbconn.commit()
     except (sqlite3.Error, OSError) as e:
-        logger.exception("add_job failed)", exc_info=True)
+        logger.exception("add_job failed", exc_info=True)
         raise HTTPException(503, "Could not save job")
+
+def del_job(job_id: int) -> int:
+    """Delete a row by id. Returns number of rows removed (0 if id did not exist)."""
+    try:
+        with sqlite3.connect(DB_PATH) as dbconn:
+            cur = dbconn.execute(
+                "DELETE FROM job_applications WHERE id = ?",
+                (job_id,),
+            )
+            dbconn.commit()
+            return int(cur.rowcount)
+    except (sqlite3.Error, OSError) as e:
+        logger.exception("del_job failed", exc_info=True)
+        raise HTTPException(503, "Could not delete job") from e
 
 
 def get_jobs():
     try:
         with sqlite3.connect(DB_PATH) as dbconn:     
-            jobs = dbconn.execute("""SELECT * FROM job_applications""").fetchall()
+            dbconn.row_factory = sqlite3.Row
+
+            cur = dbconn.execute(
+                """
+                SELECT id, created_at, job_url, job_text, resume_choice,
+                       job_title, salary, job_summary
+                FROM job_applications
+                ORDER BY id DESC
+                """)
             #OR
             # cur = dbconn.execute("""SELECT * FROM job_applications""")
             # jobs = cur.fetchall()
-            return jobs
+            return [dict(row) for row in cur.fetchall()]
+
     except (sqlite3.Error, OSError) as e:
-        logger.exception("get_jobs failed)", exc_info=True)
+        logger.exception("get_jobs failed", exc_info=True)
         raise HTTPException(503, "Could not load jobs")

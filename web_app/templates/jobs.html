@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block main_class %}main-wide{% endblock %}
+
+{% block title %}Job applications — Job app tracker{% endblock %}
+
+{% block content %}
+  <h1>Job applications</h1>
+
+  {% if not jobs %}
+    <p class="empty-state">No applications logged yet.</p>
+  {% else %}
+    <div class="table-wrap">
+      <table class="job-table">
+        <thead>
+          <tr>
+            <th scope="col">Created</th>
+            <th scope="col">Title</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Summary</th>
+            <th scope="col">Resume</th>
+            <th scope="col">Link</th>
+            <th scope="col" class="actions-th">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for job in jobs %}
+            <tr>
+              <td>{{ job.created_at }}</td>
+              <td>{{ job.job_title|default("—", true) }}</td>
+              <td>{{ job.salary|default("—", true) }}</td>
+              <td class="summary-cell">
+                {% set s = (job.job_summary or "")|trim %}
+                {% if not s %}
+                  —
+                {% elif s|length > 88 %}
+                  <div class="summary-trunc">
+                    <p class="summary-preview">{{ s[:80] }}…</p>
+                    <p class="summary-full" hidden>{{ s }}</p>
+                    <button type="button" class="summary-toggle" aria-expanded="false">Show more</button>
+                  </div>
+                {% else %}
+                  {{ s }}
+                {% endif %}
+              </td>
+              <td>{{ job.resume_choice|default("—", true) }}</td>
+              <td>
+                {% if job.job_url %}
+                  <a href="{{ job.job_url }}" target="_blank" rel="noopener noreferrer">Open</a>
+                {% else %}
+                  —
+                {% endif %}
+              </td>
+              <td class="actions-cell">
+                <form
+                  class="job-delete-form"
+                  method="post"
+                  action="/jobs/{{ job['id'] }}/delete"
+                  onsubmit="return confirm('Delete this application? This cannot be undone.');"
+                >
+                  <button type="submit" class="btn-delete-row">Delete</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    document.addEventListener("click", function (e) {
+      const btn = e.target.closest(".summary-toggle");
+      if (!btn) return;
+      const wrap = btn.closest(".summary-trunc");
+      if (!wrap) return;
+      const prev = wrap.querySelector(".summary-preview");
+      const full = wrap.querySelector(".summary-full");
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      if (expanded) {
+        full.hidden = true;
+        prev.hidden = false;
+        btn.textContent = "Show more";
+        btn.setAttribute("aria-expanded", "false");
+      } else {
+        full.hidden = false;
+        prev.hidden = true;
+        btn.textContent = "Show less";
+        btn.setAttribute("aria-expanded", "true");
+      }
+    });
+  </script>
+{% endblock %}

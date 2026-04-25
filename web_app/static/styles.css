@@ -1,0 +1,277 @@
+/* Clean palette + typography */
+:root {
+    --bg: #f6f7f9;
+    --surface: #ffffff;
+    --text: #1a1d26;
+    --text-muted: #5c6370;
+    --border: #e2e5eb;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --nav-height: 3.25rem;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+    font-size: 16px;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family:
+      system-ui,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: var(--nav-height);
+    padding: 0 1.25rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  
+  nav a {
+    color: var(--accent);
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 0.25rem 0.35rem;
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+  
+  nav a:hover {
+    color: var(--accent-hover);
+    background: rgba(37, 99, 235, 0.08);
+  }
+  
+  nav span {
+    color: var(--text-muted);
+    user-select: none;
+  }
+  
+  main {
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+  }
+
+  /* Wider page shell for dense tables (e.g. job list) */
+  main.main-wide {
+    max-width: min(100%, 88rem);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  main h1 {
+    margin: 0 0 0.5rem;
+    font-size: 1.75rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+  
+  main p {
+    margin: 0 0 1rem;
+    color: var(--text-muted);
+    max-width: 42em;
+  }
+  
+  main a {
+    color: var(--accent);
+  }
+  
+  main a:hover {
+    color: var(--accent-hover);
+  }
+
+  .flash {
+    margin: 0 0 1.25rem;
+    padding: 0.75rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    color: var(--text);
+    font-size: 0.9375rem;
+  }
+
+  /* Job list table */
+.table-wrap {
+  margin-top: 1.25rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.job-table {
+  width: 100%;
+  min-width: 72rem;
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.job-table th,
+.job-table td {
+  padding: 0.65rem 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.job-table th {
+  background: var(--bg);
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.job-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.job-table tbody tr:hover {
+  background: rgba(37, 99, 235, 0.04);
+}
+
+/* Summary column: allow wrapping, cap width for readability */
+.job-table td.summary-cell {
+  min-width: 18rem;
+  max-width: 40rem;
+  word-break: break-word;
+}
+
+/* Reserve space so Resume, Link, and Delete don’t crowd each other */
+.job-table th:nth-child(5),
+.job-table td:nth-child(5) {
+  min-width: 7rem;
+}
+
+.job-table th:nth-child(6),
+.job-table td:nth-child(6) {
+  min-width: 4.5rem;
+}
+
+.job-table th.actions-th,
+.job-table td.actions-cell {
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: middle;
+  min-width: 5.5rem;
+}
+
+.job-delete-form {
+  display: inline;
+  margin: 0;
+}
+
+.btn-delete-row {
+  margin: 0;
+  padding: 0.4rem 0.7rem;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #b91c1c;
+  background: var(--surface);
+  border: 1px solid rgba(185, 28, 28, 0.35);
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-delete-row:hover {
+  background: rgba(185, 28, 28, 0.08);
+  border-color: #b91c1c;
+}
+
+.summary-trunc p {
+  margin: 0 0 0.35rem;
+}
+
+.summary-toggle {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.summary-toggle:hover {
+  color: var(--accent-hover);
+}
+
+.empty-state {
+  margin: 1.5rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+}
+
+/* Log job form: larger text fields */
+.log-job-form .form-field {
+  margin-bottom: 1.25rem;
+}
+
+.log-job-form .form-field label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+}
+
+.log-job-form input#job_url,
+.log-job-form textarea#job_text {
+  width: 100%;
+  max-width: 100%;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.log-job-form input#job_url {
+  min-height: 3.25rem;
+}
+
+.log-job-form textarea#job_text {
+  min-height: 28rem;
+  resize: vertical;
+  font-family: inherit;
+}

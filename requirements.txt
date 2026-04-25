@@ -6,3 +6,5 @@ uvicorn
 selenium
 fastapi
 gunicorn
+pydantic
+jinja2
