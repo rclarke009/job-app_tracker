@@ -3,10 +3,9 @@
 One-time migration: copy rows from local jobapp.db (SQLite) to Postgres via DATABASE_URL
 (target Supabase project nfgoyspfbcpnlrpmxpgv — same string as the running app).
 
-Usage (from parent of package, with PYTHONPATH set):
-  cd udemy-python/days36-40
+Usage (from this repo root):
   export DATABASE_URL='postgresql://...'
-  python -m jobapp_tracker.migrate_sqlite_to_supabase [path/to/jobapp.db]
+  python migrate_sqlite_to_supabase.py [path/to/jobapp.db]
 
 If the SQLite file is missing or has no table, the script exits 0.
 """

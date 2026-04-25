@@ -13,8 +13,8 @@ from starlette.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import HTMLResponse
 
-from jobapp_tracker.web_app.models import JobInfo, UserInput, JobExtraction
-from jobapp_tracker.db import add_job, get_jobs, create_tables, del_job
+from .models import JobExtraction, JobInfo, UserInput
+from .db import add_job, create_tables, del_job, get_jobs
 
 
 _BASE_DIR = Path(__file__).resolve().parent

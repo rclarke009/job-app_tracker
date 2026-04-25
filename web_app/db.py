@@ -14,7 +14,7 @@ import psycopg
 from fastapi import HTTPException
 from psycopg.rows import dict_row
 
-from jobapp_tracker.web_app.models import JobInfo
+from .models import JobInfo
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(

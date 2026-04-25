@@ -9,15 +9,14 @@ it to the app_tracker google sheet along with that day's date.
 
 
 
-Either leave Root Directory empty and use start command:
-gunicorn web_app.app:app
-Or set Root Directory to web_app and use:
-gunicorn app:app
-(then the module is just app, not web_app.app).
+Deploy / local (from this repo’s root, i.e. the folder with `web_app` and `requirements.txt`):
 
-gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
+- **Render (and similar):** Root Directory = empty (use repo root).  
+  **Start command:** `gunicorn web_app.app:app -k uvicorn.workers.UvicornWorker` or `uvicorn web_app.app:app --host 0.0.0.0 --port 10000`  
+  (Render’s package root is the clone, so the app is `web_app.app`, not `jobapp_tracker.web_app.app` — the package name in imports is `web_app` only.)
+- `gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000` (if you have a `main` module; this project’s app is `web_app.app`).
 
-uvicorn jobapp_tracker.web_app.app:app
+`uvicorn web_app.app:app`
 
 
 
